@@ -1,0 +1,29 @@
+<div class="text-center">
+  <h1>新しいロットの登録</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(model: @lot, local: true) do |f| %>
+     <%= render 'layouts/error_messages', model: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :lot_name, 'ロット名' %>
+        <%= f.text_field :lot_name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :start_date, '餌付け日' %>
+        <%= f.date_field :start_date, class: 'w-50 form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :bird_house, '総羽数' %>
+        <%= f.number_field :bird_house, class: 'form-control' %>
+      </div>
+
+      <%= f.submit '登録', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  </div>
+</div>

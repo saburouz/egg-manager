@@ -1,0 +1,103 @@
+<body>
+  <h1>ロット名:<%= @lot.lot_name %></h1>
+  <canvas id="myLineChart"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+  <script>
+  var ctx = document.getElementById("myLineChart");
+  var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        <% @results.each do |r| %>
+           '<%= r.date.strftime("%y/%m/%d") %>',
+        <% end %>
+        ],
+      datasets: [
+        {
+          type: 'line',
+          label: '生存率',
+          data: [
+           <% @results.each do |r| %>
+             <%= r.rate * 100.0 %>,
+           <% end %>           ],
+          borderColor: "rgba(255,0,0,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+          yAxisID: "y-axis-1",
+        },
+        {
+          type: 'line',
+          label: '産卵率',
+          data: [
+           <% @results.each do |r| %>
+             <%= (r.egg_count.to_f / (r.lot.bird_house - r.bird_dead).to_f) * 100.0 %>,
+           <% end %> 
+          ],          
+          borderColor: "rgba(0,0,255,1)",
+          backgroundColor: "rgba(0,0,0,0)",
+          yAxisID: "y-axis-1",
+
+        },
+        
+        {
+          label: '死鶏',
+          data: [
+           <% firstdata = @lot.bird_house %>
+           <% @results.each do |r| %>
+             <% current_bird = firstdata - r.bird_dead %>
+             <%= (current_bird.to_f / r.lot.bird_house.to_f) * 100.0 %>,
+           <% end %> 
+          ],
+          borderColor: "rgba(0,255,0,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+          yAxisID: "y-axis-2",
+          
+        }
+
+        
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: '日付（<%= @results.first.date.strftime("%m月%d日") %> ~ <%= @results.last.date.strftime("%m月%d日") %>）'
+      },
+      scales: {
+        yAxes: [
+          {
+            id: "y-axis-1",
+            type: "linear",
+            position: "left",
+            ticks: {
+              suggestedMax: 40,
+              suggestedMin: 0,
+              stepSize: 10,
+              callback: function(value, index, values){
+                return  value +  '%'
+              },
+        
+          },
+          
+          {
+            id: "y-axis-2",
+            type: "linear",
+            position: "right",
+            ticks: {
+              suggestedMax: 40,
+              suggestedMin: 0,
+              stepSize: 10,
+              callback: function(value, index, values){
+                return  value +  '%'
+              },
+            },
+            gridLines: {
+                drawOnChartArea: false,
+            },
+          
+        }
+        ],
+      },
+    }
+  });
+  </script>
+</body>

@@ -1,0 +1,23 @@
+
+<div class="card">
+    <div class="card-header">
+        ロット情報
+    </div>
+    <div class="card-body">
+              <li>ロット名:<%= @lot.lot_name %> </li>
+              <li>開始日:<%= @lot.start_date %> </li>
+              <li>鶏数: <%= @lot.bird_house %></li>
+    </div>
+    
+
+    
+    <%= link_to "当月のグラフを見る", graph_lot_path, class:"btn btn-primary btn-block" %>
+</div>
+<div class="card">
+    <div class="card-header">
+        新規入力
+    </div>
+    <div class="card-body">
+        <%= render 'lots/form', result:@result %>
+    </div>
+</div>

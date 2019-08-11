@@ -1,0 +1,28 @@
+<div class="card-body">
+    <%= form_with(model:@result, local:true) do |f| %>
+    
+        <% if @result.errors.any? %>
+           <%= render 'layouts/error_messages', model: f.object %>
+        <% end %>
+         <div class="row form-group">
+             <%= f.label :date, "日付", class:"col-2" %>
+             <%= f.date_field :date, class: 'w-50 form-control' %>
+         </div>
+          <div class="row form-group">
+             <%= f.label :egg_count, "産卵個数", class:"col-2"  %>
+             <%= f.number_field :egg_count, class: 'w-50 form-control' %>
+         </div>
+          <div class="row form-group">
+             <%= f.label :egg_weight, "卵重", class:"col-2" %>
+             <%= f.number_field :egg_weight, class: 'w-50 form-control' %>
+         </div>
+          <div class="row form-group">
+             <%= f.label :bird_dead, "死鶏数", class:"col-2" %>
+             <%= f.number_field :bird_dead, class: 'w-50 form-control' %>
+         </div>
+         
+         
+         <%= hidden_field_tag :lot_id, @lot.id %>
+         <%= f.submit "登録", class:"btn btn-success" %>
+    <% end %>
+    </div>

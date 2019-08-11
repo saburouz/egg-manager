@@ -1,15 +1,9 @@
 <% if logged_in? %>
-  <div class="row">
-    <aside class="col-sm-4">
-      <%= form_with(model: @micropost, local: true) do |f| %>
-        <div class="form-group">
-          <%= f.text_area :content, class: 'form-control', rows: 5 %>
-        </div>
-        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
-      <% end %>
-    </aside>
-    <div class="col-sm-8">
-      <%= render 'microposts/microposts', microposts: @microposts %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1><%= current_user.name %>さん、第一農場システムへようこそ</h1>
+    <%= link_to '新しいロットの登録', new_lot_path, class: 'btn btn-lg btn-primary' %>
+    <%= link_to 'ロット一覧へ', lots_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>
 <% else %>

@@ -1,0 +1,31 @@
+<% if @lots.any? %>
+  <ul class="list-unstyled">
+
+      <li class="media">
+        <div class="media-body">
+          <table class="table table-striped table-bordered">
+            <tr>
+              <th>ロット名</th>
+              <th>開始日</th>
+              <th>鶏数</th>
+              <th>操作</th>
+            </tr>
+           <% @lots.each do |lot| %>
+             <tr>
+               <td><%= lot.lot_name %></td>
+               <td><%= lot.start_date %></td>
+               <td><%= lot.bird_house %></td>
+               <td><%= link_to '記録をつける', lot_path(lot), class:"btn btn-sm btn-success" %>
+               
+               </td>
+             </tr>
+            <% end %>
+          </table>
+          </div>
+
+        </div>
+      </li>
+ 
+  </ul>
+  <%= paginate @lots %>
+<% end %>

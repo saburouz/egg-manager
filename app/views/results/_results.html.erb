@@ -1,0 +1,33 @@
+<% if results.any? %>
+  <ul class="list-unstyled">
+
+      <li class="media">
+        <div class="media-body">
+          <table class="table table-striped table-bordered">
+            <tr>
+              <th>日付</th>
+              <th>産卵個数</th>
+              <th>卵重</th>
+              <th>死鶏数</th>
+              <th>生存率</th>
+              <th>操作</th>
+            </tr>
+           <% results.each do |result| %>
+             <tr>
+               <td><%= result.date %></td>
+               <td><%= result.egg_count %></td>
+               <td><%= result.egg_weight %></td>
+               <td><%= result.bird_dead %></td>
+               <td><%= result.rate %></td>
+               <td><%= link_to '記録の編集', edit_result_path(result), class:"btn btn-sm btn-success" %></td>
+             </tr>
+            <% end %>
+          </table>
+          <%= link_to '一覧へ戻る', lots_path, class:"btn btn-sm btn-success" %>
+          </div>
+        </div>
+      </li>
+ 
+  </ul>
+  <%= paginate @results %>
+<% end %>

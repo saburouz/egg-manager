@@ -10,15 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_110957) do
+ActiveRecord::Schema.define(version: 2019_07_27_012344) do
+
+  create_table "lots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "lot_name"
+    t.date "start_date"
+    t.integer "bird_house"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "date"
+    t.integer "egg_count"
+    t.integer "egg_weight"
+    t.integer "bird_dead"
+    t.float "rate"
+    t.bigint "lot_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lot_id"], name: "index_results_on_lot_id"
+    t.index ["user_id"], name: "index_results_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "inactive"
+    t.integer "inactive", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "results", "lots"
+  add_foreign_key "results", "users"
 end
